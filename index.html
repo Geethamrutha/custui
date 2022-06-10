@@ -148,7 +148,7 @@
             <div class="chat-overlay-header-mobile">
                 <img class="close" src="./amelia-close.png" alt="toggle chat overlay" />
             </div>
-            <iframe id="receiver" src="https://exl-coe.dev.amelia.com/Amelia/ui/retail/?domainCode=onlineretail&embed=true" frameborder="0" width="100%" height="100%" allow="geolocation; microphone; camera">
+            <iframe id="receiver" src="https://demo.amelia.com/Amelia/ui/retail/chat/?domainCode=retail&embed=true" frameborder="0" width="100%" height="100%" allow="geolocation; microphone; camera">
         <p>Your browser does not support iframes.</p>
       </iframe>
             <div class="chat-overlay-header">
@@ -157,7 +157,25 @@
             </div>
         </div>
     </div>
-
+	<script>
+		function receiveMessage(e, data) {
+			
+			var url = e.data.url;
+			if (e.origin !== 'https://MyAmelia.ipsoft.com')
+			  return;
+		 
+			 if (e.data.action === "checkout" && e.data.additionalData) {
+				window.location.href = "/checkout/?additionalData="+ e.data.additionalData;
+			}
+		  }
+		   
+		  function sendMessage(data) {
+			
+			var receiverElem = document.getElementById('receiver').contentWindow;
+			receiverElem.postMessage(data, "https://demo.amelia.com/Amelia/ui/retail/chat/?embed=iframe&domainCode=retail");
+		  }
+		window.addEventListener('message', receiveMessage);
+	</script>
 
     <script>
         function openChatOverlay(receiverElem, imgElemOpen, imgElemClose) {
