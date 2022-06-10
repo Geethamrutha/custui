@@ -161,7 +161,7 @@
 		function receiveMessage(e, data) {
 			
 			var url = e.data.url;
-			
+			console.log('This is the URLL in receive message'+ e.data.url)
 			 if (e.data.action == "checkout") {
 				window.location.href = "https://geethamrutha.github.io/custui/page2.html";
 			}
